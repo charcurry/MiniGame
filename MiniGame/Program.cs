@@ -20,7 +20,7 @@ namespace MiniGame
 
         static void PlayerUpdate()
         {
-            ConsoleKeyInfo input = Console.ReadKey();
+            ConsoleKeyInfo input = Console.ReadKey(true);
 
             if (input.Key == ConsoleKey.W)
             {
