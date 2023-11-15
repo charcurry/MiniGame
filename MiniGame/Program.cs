@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MiniGame
 {
@@ -18,6 +19,28 @@ namespace MiniGame
             Console.WriteLine("@");
         }
 
+        static void RenderMap()
+        {
+            Console.SetCursorPosition(0,0);
+            string path = @"map.txt";
+
+            string[] mapRows;
+
+            mapRows = File.ReadAllLines(path);
+
+            for (int y = 0; y < mapRows.Length; y++)
+            {
+                string mapRow = mapRows[y];
+                for (int x = 0; x < mapRow.Length; x++)
+                {
+                    char tile = mapRow[x];
+                    Console.Write(tile);
+                }
+                Console.WriteLine();
+            }
+        }
+
+
         static void PlayerUpdate()
         {
             ConsoleKeyInfo input = Console.ReadKey(true);
@@ -26,25 +49,21 @@ namespace MiniGame
             {
                 y--;
                 if (y < 0) y = 0;
-                Console.Clear();
             }
             else if (input.Key == ConsoleKey.A)
             {
                 x--;
                 if (x < 0) x = 0;
-                Console.Clear();
             }
             else if (input.Key == ConsoleKey.D)
             {
                 x++;
                 if (x > 50) x = 50;
-                Console.Clear();
             }
             else if (input.Key == ConsoleKey.S)
             {
                 y++;
                 if (y > 50) y = 50;
-                Console.Clear();
             }
             else if (input.Key == ConsoleKey.Escape)
             {
@@ -61,11 +80,12 @@ namespace MiniGame
             {
                 PlayerDraw(x, y);
                 PlayerUpdate();
+                RenderMap();
             }
 
             Console.WriteLine();
             Console.WriteLine("Press any key to continue...");
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
     }
 }
